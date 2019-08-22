@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <version>1.0-SNAPSHOT</version>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.robust.tools</groupId>
+    <artifactId>tool-bom</artifactId>
+    <packaging>pom</packaging>
+
+    <properties>
+        <version>1.0-SNAPSHOT</version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.robust.aop</groupId>
+                <artifactId>tool-aop</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.robust.concurrency</groupId>
+                <artifactId>tool-concurrency</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.robust.core</groupId>
+                <artifactId>tool-core</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.robust.tools</groupId>
+                <artifactId>tool-kit</artifactId>
+                <version>${version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>
