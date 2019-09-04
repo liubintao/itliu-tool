@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
 import java.util.List;
+import java.util.zip.DeflaterOutputStream;
+import java.util.zip.InflaterInputStream;
 
 /**
  * @Description: IO Stream/Reader相关工具集. 固定encoding为UTF8.
@@ -140,5 +142,51 @@ public class IOUtil {
      */
     public static BufferedReader toBufferedReader(Reader reader) {
         return reader instanceof BufferedReader ? (BufferedReader) reader : new BufferedReader(reader);
+    }
+
+    /**
+     * 压缩
+     *
+     * @param data 原始字节数组
+     * @return 压缩后的字节数组
+     */
+    public static byte[] compress(byte[] data) {
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream(data.length / 4);
+        DeflaterOutputStream zipOut = new DeflaterOutputStream(out);
+        try {
+            zipOut.write(data);
+            zipOut.finish();
+            zipOut.close();
+        } catch (IOException e) {
+            log.error("compress ex", e);
+            return new byte[0];
+        } finally {
+            closeQuietly(zipOut);
+        }
+        return out.toByteArray();
+    }
+
+    /**
+     * 解压缩
+     * @param data 压缩后的字节数组
+     * @return 原始字节数组
+     */
+    public static byte[] decompress(byte[] data) {
+        InflaterInputStream zipIn = new InflaterInputStream(new ByteArrayInputStream(data));
+        ByteArrayOutputStream out = new ByteArrayOutputStream(data.length * 4);
+        byte[] buffer = new byte[1024];
+        int length;
+        try {
+            while ((length = zipIn.read(buffer)) != -1) {
+                out.write(buffer, 0, length);
+            }
+        } catch (IOException e) {
+            log.error("decompress ex", e);
+            return new byte[0];
+        } finally {
+            closeQuietly(zipIn);
+        }
+        return out.toByteArray();
     }
 }

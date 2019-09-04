@@ -10,16 +10,17 @@ public class MathUtil {
 
     /**
      * copy from netty {@see io.netty.util.internal.MathUtil#safeFindNextPositivePowerOfTwo(int)}
-     *
+     * <p>
      * Fast method of finding the next power of 2 greater than or equal to the supplied value.
      * <p>This method will do runtime bounds checking and call {@link #findNextPositivePowerOfTwo(int)} if within a
      * valid range.
+     *
      * @param value from which to search for next power of 2
      * @return The next power of 2 or the value itself if it is a power of 2.
      * <p>Special cases for return values are as follows:
      * <ul>
-     *     <li>{@code <= 0} -> 1</li>
-     *     <li>{@code >= 2^30} -> 2^30</li>
+     * <li>{@code <= 0} -> 1</li>
+     * <li>{@code >= 2^30} -> 2^30</li>
      * </ul>
      */
     public static int safeFindNextPositivePowerOfTwo(final int value) {
@@ -39,5 +40,14 @@ public class MathUtil {
     public static int findNextPositivePowerOfTwo(final int value) {
         assert value > Integer.MIN_VALUE && value < 0x40000000;
         return 1 << (32 - Integer.numberOfLeadingZeros(value - 1));
+    }
+
+    /**
+     * 判断一个数是否是2的幂次方
+     * @param value 目标值
+     * @return true/false
+     */
+    public static boolean isPowerOfTwo(int value) {
+        return (value & -value) == value;
     }
 }
