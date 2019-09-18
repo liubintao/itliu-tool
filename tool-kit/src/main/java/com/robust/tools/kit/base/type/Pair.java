@@ -34,7 +34,10 @@ public class Pair<L, R> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(left, right);
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((left == null) ? 0 : left.hashCode());
+        return prime * result + ((right == null) ? 0 : right.hashCode());
     }
 
     /**
