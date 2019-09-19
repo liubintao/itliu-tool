@@ -9,7 +9,7 @@ import java.nio.charset.Charset;
 /**
  * 关于系统设定，平台信息的变量(via Common Lang SystemUtils)
  */
-public interface Platforms {
+public class Platforms {
 
     // 文件路径分隔符
     String FILE_PATH_SEPARATOR = File.separator;
